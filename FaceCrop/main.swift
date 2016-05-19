@@ -104,8 +104,8 @@ dispatch_apply(imageURLs.count, queue) { i in
             cvIm = OpenCVImage(data: data, cols: Int32(cols), rows: Int32(rows))
         }
         
-        let tileSize: CGFloat = 8// 16 // / 800.0 * square
-        let clipLimit = 1//0.5 // / 800 * square
+        let tileSize: CGFloat = 16 // / 800.0 * square
+        let clipLimit = 0.5 // / 800 * square
         cvIm.claheWithClipLimit(Double(clipLimit), tileGridSize: CGSizeMake(tileSize, tileSize))
         
         cvIm.withData { data,cols,rows in
