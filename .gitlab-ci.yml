@@ -1,0 +1,10 @@
+stages:
+  - build
+
+job1:
+  stage: build
+  script:
+    - xcodebuild | xcpretty && exit ${PIPESTATUS[0]}
+  artifacts:
+    paths:
+      - build/Release/FaceCrop
