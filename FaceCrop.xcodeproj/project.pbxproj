@@ -1,0 +1,307 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1742A4251CE49B48001EDDF3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1742A4241CE49B48001EDDF3 /* main.swift */; };
+		1742A42E1CE49D14001EDDF3 /* MagickImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1742A42D1CE49D14001EDDF3 /* MagickImage.mm */; };
+		17C6862D1CE62D8000CFE35F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C6862C1CE62D8000CFE35F /* Errors.swift */; };
+		17C686311CE6AA5B00CFE35F /* OpenCVImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 17C686301CE6AA5B00CFE35F /* OpenCVImage.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1742A41F1CE49B48001EDDF3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1742A4211CE49B48001EDDF3 /* FaceCrop */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FaceCrop; sourceTree = BUILT_PRODUCTS_DIR; };
+		1742A4241CE49B48001EDDF3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		1742A42C1CE49D13001EDDF3 /* FaceCrop-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FaceCrop-Bridging-Header.h"; sourceTree = "<group>"; };
+		1742A42D1CE49D14001EDDF3 /* MagickImage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MagickImage.mm; sourceTree = "<group>"; };
+		17C6860D1CE5B3B700CFE35F /* MagickImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagickImage.h; sourceTree = "<group>"; };
+		17C6862C1CE62D8000CFE35F /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		17C686301CE6AA5B00CFE35F /* OpenCVImage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVImage.mm; sourceTree = "<group>"; };
+		17C686321CE6AA7800CFE35F /* OpenCVImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVImage.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1742A41E1CE49B48001EDDF3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1742A4181CE49B48001EDDF3 = {
+			isa = PBXGroup;
+			children = (
+				1742A4231CE49B48001EDDF3 /* FaceCrop */,
+				1742A4221CE49B48001EDDF3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1742A4221CE49B48001EDDF3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1742A4211CE49B48001EDDF3 /* FaceCrop */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1742A4231CE49B48001EDDF3 /* FaceCrop */ = {
+			isa = PBXGroup;
+			children = (
+				1742A4241CE49B48001EDDF3 /* main.swift */,
+				17C6862C1CE62D8000CFE35F /* Errors.swift */,
+				17C6860D1CE5B3B700CFE35F /* MagickImage.h */,
+				1742A42D1CE49D14001EDDF3 /* MagickImage.mm */,
+				17C686321CE6AA7800CFE35F /* OpenCVImage.h */,
+				17C686301CE6AA5B00CFE35F /* OpenCVImage.mm */,
+				1742A42C1CE49D13001EDDF3 /* FaceCrop-Bridging-Header.h */,
+			);
+			name = FaceCrop;
+			path = FaceCrop;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1742A4201CE49B48001EDDF3 /* FaceCrop */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1742A4281CE49B48001EDDF3 /* Build configuration list for PBXNativeTarget "FaceCrop" */;
+			buildPhases = (
+				1742A41D1CE49B48001EDDF3 /* Sources */,
+				1742A41E1CE49B48001EDDF3 /* Frameworks */,
+				1742A41F1CE49B48001EDDF3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FaceCrop;
+			productName = FaceCrop;
+			productReference = 1742A4211CE49B48001EDDF3 /* FaceCrop */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1742A4191CE49B48001EDDF3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Florian Kistner";
+				TargetAttributes = {
+					1742A4201CE49B48001EDDF3 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 1742A41C1CE49B48001EDDF3 /* Build configuration list for PBXProject "FaceCrop" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1742A4181CE49B48001EDDF3;
+			productRefGroup = 1742A4221CE49B48001EDDF3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1742A4201CE49B48001EDDF3 /* FaceCrop */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1742A41D1CE49B48001EDDF3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1742A42E1CE49D14001EDDF3 /* MagickImage.mm in Sources */,
+				17C6862D1CE62D8000CFE35F /* Errors.swift in Sources */,
+				17C686311CE6AA5B00CFE35F /* OpenCVImage.mm in Sources */,
+				1742A4251CE49B48001EDDF3 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1742A4261CE49B48001EDDF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_HEADERS_UNIFDEF_FLAGS = "";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MAGICKCORE_HDRI_ENABLE=1",
+					"MAGICKCORE_QUANTUM_DEPTH=16",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/opt/imagemagick/include/ImageMagick-6",
+					/usr/local/opt/opencv3/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-L/usr/local/opt/imagemagick/lib",
+					"-lMagick++-6.Q16HDRI",
+					"-lMagickCore-6.Q16HDRI",
+					"-L/usr/local/opt/opencv3/lib",
+					"-lopencv_objdetect",
+					"-lopencv_imgcodecs",
+					"-lopencv_imgproc",
+					"-lopencv_core",
+				);
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1742A4271CE49B48001EDDF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_HEADERS_UNIFDEF_FLAGS = "";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"MAGICKCORE_HDRI_ENABLE=1",
+					"MAGICKCORE_QUANTUM_DEPTH=16",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/opt/imagemagick/include/ImageMagick-6",
+					/usr/local/opt/opencv3/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-L/usr/local/opt/imagemagick/lib",
+					"-lMagick++-6.Q16HDRI",
+					"-lMagickCore-6.Q16HDRI",
+					"-L/usr/local/opt/opencv3/lib",
+					"-lopencv_objdetect",
+					"-lopencv_imgcodecs",
+					"-lopencv_imgproc",
+					"-lopencv_core",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1742A4291CE49B48001EDDF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = FaceCrop;
+				SWIFT_OBJC_BRIDGING_HEADER = "FaceCrop/FaceCrop-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1742A42A1CE49B48001EDDF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = FaceCrop;
+				SWIFT_OBJC_BRIDGING_HEADER = "FaceCrop/FaceCrop-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1742A41C1CE49B48001EDDF3 /* Build configuration list for PBXProject "FaceCrop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1742A4261CE49B48001EDDF3 /* Debug */,
+				1742A4271CE49B48001EDDF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1742A4281CE49B48001EDDF3 /* Build configuration list for PBXNativeTarget "FaceCrop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1742A4291CE49B48001EDDF3 /* Debug */,
+				1742A42A1CE49B48001EDDF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1742A4191CE49B48001EDDF3 /* Project object */;
+}
