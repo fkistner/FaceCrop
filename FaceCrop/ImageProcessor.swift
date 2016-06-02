@@ -13,14 +13,14 @@ class ImageProcessor {
     static func processImage(imageURL: NSURL, forIndex i: Int) throws {
         var components = imageURL.pathComponents!
         components.removeFirst(inURL.pathComponents!.count)
-        let relImageURL = NSURL(fileURLWithPath: NSString.pathWithComponents(components), relativeToURL: inURL)
-        let baseImageURL = relImageURL
-        //        components.first!.characters.split("^")
-        let fileName: NSString = components.last!
-        let baseFileName: NSString = fileName.stringByDeletingPathExtension
-        let options = baseFileName
-        components[components.count - 1] = baseFileName.stringByAppendingPathExtension(outFormat)!
-        let outFileName = NSString.pathWithComponents(components)
+        let relImageURL = NSURL(fileURLWithPath: NSString.pathWithComponents(components), relativeToURL: outURL)
+        let baseImageURL = relImageURL.URLByDeletingPathExtension!
+        let fileNameComponents = baseImageURL.lastPathComponent!.componentsSeparatedByString("^")
+        let options = fileNameComponents.dropFirst()
+        let outImageURL = baseImageURL
+            .URLByDeletingLastPathComponent!
+            .URLByAppendingPathComponent(fileNameComponents.first!, isDirectory: false)
+            .URLByAppendingPathExtension(outFormat)
         //let outLogName = outPath.stringByAppendingPathExtension("log")
         
         var mgIm: MagickImage!
@@ -38,7 +38,9 @@ class ImageProcessor {
             cvIm = OpenCVImage(data: data, cols: Int32(cols), rows: Int32(rows))
         }
         
-        let face = cvIm.faceDetect()
+        let face = !options.contains("nocrop")
+            ? cvIm.faceDetect()
+            : CGRectNull
         if face != CGRectNull {
             let th = face.size.height / targetFaceHeight
             let ts = min(th, square)
@@ -56,9 +58,9 @@ class ImageProcessor {
             let posX = numFormat.stringFromNumber(tx / size.width)!
             let posY = numFormat.stringFromNumber(ty / size.height)!
             let ratio = numFormat.stringFromNumber(face.size.height / size.height)!
-            print("\(i);\(outFileName);1;\(posX);\(posY);\(ratio)")
+            print("\(i);\(outImageURL.relativePath!);1;\(posX);\(posY);\(ratio)")
         } else {
-            print("\(i);\(outFileName);-1;0;0;1")
+            print("\(i);\(outImageURL.relativePath!);-1;0;0;1")
         }
         
         mgIm.crop(crop)
@@ -80,10 +82,9 @@ class ImageProcessor {
         mgIm.convertToColorspace(Colorspace_sRGB)
         mgIm.setDepth(8)
         
-        let outFile = outPath.stringByAppendingPathComponent(outFileName)
-        let specificOutPath = (outFile as NSString).stringByDeletingLastPathComponent
+        let specificOutURL = outImageURL.URLByDeletingLastPathComponent!
         try NSFileManager.defaultManager()
-            .createDirectoryAtPath(specificOutPath, withIntermediateDirectories: true, attributes: nil)
-        try mgIm.writeToFile(outFile, withQuality: outQuality)
+            .createDirectoryAtURL(specificOutURL, withIntermediateDirectories: true, attributes: nil)
+        try mgIm.writeToFile(outImageURL.path!, withQuality: outQuality)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-let (inPath, outPath, outFormat, outSize, outQuality) = { () -> (String, NSString, String, Int, Float) in
+let (inURL, outURL, outFormat, outSize, outQuality) = { () -> (NSURL, NSURL, String, Int, Float) in
     var outFormat: String?
     var outSize: Int?
     var outQuality: Float?
@@ -23,7 +23,9 @@ let (inPath, outPath, outFormat, outSize, outQuality) = { () -> (String, NSStrin
         outFormat = Process.arguments[3]
         fallthrough
     case 3:
-        return (Process.arguments[1], Process.arguments[2], outFormat ?? "jpg", outSize ?? 800, outQuality ?? 0.95)
+        let inURL = NSURL(fileURLWithPath: (Process.arguments[1] as NSString).stringByExpandingTildeInPath, isDirectory: true)
+        let outURL = NSURL(fileURLWithPath: (Process.arguments[2] as NSString).stringByExpandingTildeInPath, isDirectory: true)
+        return (inURL, outURL, outFormat ?? "jpg", outSize ?? 800, outQuality ?? 0.95)
     default:
         print("Usage: \(Process.arguments[0]) inPath outPath [outFormat] [outSize] [outQuality]")
         exit(-1)
@@ -36,7 +38,6 @@ numFormat.localizesFormat = true
 
 let targetFaceHeight: CGFloat = 0.618
 
-let inURL = NSURL(fileURLWithPath: inPath, isDirectory: true)
 let imageURLEnumerator = NSFileManager.defaultManager()
     .enumeratorAtURL(inURL, includingPropertiesForKeys: [NSURLIsDirectoryKey], options: .SkipsHiddenFiles, errorHandler: nil)
 
