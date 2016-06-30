@@ -1,4 +1,4 @@
-FaceCrop is licensed under the MIT license.
+FaceCrop is licensed under the MIT License.
 
 >   Copyright © 2016 Florian Kistner
 
