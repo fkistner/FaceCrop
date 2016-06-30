@@ -4,6 +4,10 @@ FaceCrop
 Crop profile pictures consistently using face detection for use on an OrgChart
 or similar.
 
+### Usage
+
+`FaceCrop inPath outPath [outFormat] [outSize] [outQuality]`
+
 ### Prerequisites
 
 -   Xcode
