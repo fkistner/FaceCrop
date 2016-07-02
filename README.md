@@ -12,10 +12,10 @@ or similar.
 
 -   Xcode
 
+-   imagemagick with Little CMS 2 and HDRI support  
+    in `/usr/local/opt/imagemagick`  
+    `brew reinstall imagemagick --with-hdri --with-little-cms2`
+
 -   opencv3  
     in `/usr/local/opt/opencv3`  
     `brew install homebrew/science/opencv3`
-
--   imagemagick with Little CMS 2 (and optionally HDRI) support  
-    in `/usr/local/opt/imagemagick`  
-    `brew reinstall imagemagick --with-hdri --with-little-cms2`
