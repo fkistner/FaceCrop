@@ -3,6 +3,8 @@ stages:
 
 job1:
   stage: build
+  tags:
+    - macos
   script:
     - xcodebuild | xcpretty && exit ${PIPESTATUS[0]}
   artifacts:
