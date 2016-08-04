@@ -12,6 +12,7 @@
 		1742A42E1CE49D14001EDDF3 /* MagickImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1742A42D1CE49D14001EDDF3 /* MagickImage.mm */; };
 		17C6862D1CE62D8000CFE35F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C6862C1CE62D8000CFE35F /* Errors.swift */; };
 		17C686311CE6AA5B00CFE35F /* OpenCVImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 17C686301CE6AA5B00CFE35F /* OpenCVImage.mm */; };
+		17E2012E1D536A21005CCC39 /* Workflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E2012D1D536A21005CCC39 /* Workflow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,6 +37,7 @@
 		17C6862C1CE62D8000CFE35F /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		17C686301CE6AA5B00CFE35F /* OpenCVImage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVImage.mm; sourceTree = "<group>"; };
 		17C686321CE6AA7800CFE35F /* OpenCVImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVImage.h; sourceTree = "<group>"; };
+		17E2012D1D536A21005CCC39 /* Workflow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workflow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			children = (
 				1742A4241CE49B48001EDDF3 /* main.swift */,
 				17C6862C1CE62D8000CFE35F /* Errors.swift */,
+				17E2012D1D536A21005CCC39 /* Workflow.swift */,
 				173438F31D003897004B8D3E /* ImageProcessor.swift */,
 				17C6860D1CE5B3B700CFE35F /* MagickImage.h */,
 				1742A42D1CE49D14001EDDF3 /* MagickImage.mm */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1742A42E1CE49D14001EDDF3 /* MagickImage.mm in Sources */,
+				17E2012E1D536A21005CCC39 /* Workflow.swift in Sources */,
 				17C6862D1CE62D8000CFE35F /* Errors.swift in Sources */,
 				173438F41D003897004B8D3E /* ImageProcessor.swift in Sources */,
 				17C686311CE6AA5B00CFE35F /* OpenCVImage.mm in Sources */,

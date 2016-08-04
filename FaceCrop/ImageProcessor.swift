@@ -10,19 +10,7 @@ import Foundation
 
 class ImageProcessor {
     
-    static func processImage(imageURL: NSURL, forIndex i: Int) throws {
-        var components = imageURL.pathComponents!
-        components.removeFirst(inURL.pathComponents!.count)
-        let relImageURL = NSURL(fileURLWithPath: NSString.pathWithComponents(components), relativeToURL: outURL)
-        let baseImageURL = relImageURL.URLByDeletingPathExtension!
-        let fileNameComponents = baseImageURL.lastPathComponent!.componentsSeparatedByString("^")
-        let options = fileNameComponents.dropFirst()
-        let outImageURL = baseImageURL
-            .URLByDeletingLastPathComponent!
-            .URLByAppendingPathComponent(fileNameComponents.first!, isDirectory: false)
-            .URLByAppendingPathExtension(outFormat)
-        //let outLogName = outPath.stringByAppendingPathExtension("log")
-        
+    static func processImage(imageURL: NSURL, outImageURL: NSURL, forIndex i: Int, withOptions options: ArraySlice<String> = []) throws {
         var mgIm: MagickImage!
         var cvIm: OpenCVImage!
         
@@ -82,9 +70,6 @@ class ImageProcessor {
         mgIm.convertToColorspace(Colorspace_sRGB)
         mgIm.setDepth(8)
         
-        let specificOutURL = outImageURL.URLByDeletingLastPathComponent!
-        try NSFileManager.defaultManager()
-            .createDirectoryAtURL(specificOutURL, withIntermediateDirectories: true, attributes: nil)
         try mgIm.writeToFile(outImageURL.path!, withQuality: outQuality)
     }
 }

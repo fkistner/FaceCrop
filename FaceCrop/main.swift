@@ -41,22 +41,28 @@ let targetFaceHeight: CGFloat = 0.618
 let imageURLEnumerator = NSFileManager.defaultManager()
     .enumeratorAtURL(inURL, includingPropertiesForKeys: [NSURLIsDirectoryKey], options: .SkipsHiddenFiles, errorHandler: nil)
 
-let imageURLs = imageURLEnumerator?.reduce([NSURL]()) { imageURLs,imageURL in
+let actions = imageURLEnumerator?.reduce([(imageURL: NSURL, outImageURL: NSURL, options: ArraySlice<String>)]()) { actions,imageURL in
     if let imageURL = imageURL as? NSURL where !imageURL.hasDirectoryPath {
-        var newImageURLs = imageURLs
-        newImageURLs.append(imageURL)
-        return newImageURLs
+        let action = Workflow.determineAction(imageURL)
+        
+        let specificOutURL = action.outImageURL.URLByDeletingLastPathComponent!
+        try! NSFileManager.defaultManager()
+            .createDirectoryAtURL(specificOutURL, withIntermediateDirectories: true, attributes: nil)
+        
+        var newActions = actions
+        newActions.append(action)
+        return newActions
     }
-    return imageURLs
+    return actions
 } ?? []
 
-print("\(imageURLs.count) pictures:")
+print("\(actions.count) pictures:")
 
 let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
 
-dispatch_apply(imageURLs.count, queue) { i in
+dispatch_apply(actions.count, queue) { i in
     autoreleasepool {
-        try! ImageProcessor.processImage(imageURLs[i], forIndex: i)
+        try! ImageProcessor.processImage(actions[i].imageURL, outImageURL: actions[i].outImageURL, forIndex: i, withOptions: actions[i].options)
     }
 }
 
