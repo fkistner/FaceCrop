@@ -52,7 +52,7 @@
 
 - (void)withData:(void (^)(NSData* data, int cols, int rows))action
 {
-    auto data = [[NSData alloc] initWithBytesNoCopy:im.data length:im.total() * im.elemSize() freeWhenDone:NO];
+    auto data = [NSData dataWithBytes:im.data length:im.total() * im.elemSize()];
     action(data, im.cols, im.rows);
 }
 
