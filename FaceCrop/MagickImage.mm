@@ -96,9 +96,10 @@ BOOL errorFromException(Magick::Exception &e, NSError **error)
 
 - (void)withData:(void (^)(NSMutableData* data, NSUInteger cols, NSUInteger rows))action
 {
-    auto data = [[NSMutableData alloc] initWithLength:image.columns()*image.rows()*3*sizeof(float)];
-    image.write(0, 0, image.columns(), image.rows(), "RGB", Magick::FloatPixel, data.mutableBytes);
-    action(data, image.columns(), image.rows());
+    auto cols = image.columns(); auto rows = image.rows();
+    auto data = [NSMutableData dataWithLength:cols * rows * 3 * sizeof(float)];
+    image.write(0, 0, cols, rows, "RGB", Magick::FloatPixel, data.mutableBytes);
+    action(data, cols, rows);
 }
 
 

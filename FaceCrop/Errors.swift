@@ -8,10 +8,6 @@
 
 import Foundation
 
-public enum Error: ErrorType {
-    case Exception(ExceptionError)
-}
-
 public enum ErrorCode: Int {
     case Exception
 }

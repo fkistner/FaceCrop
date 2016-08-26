@@ -39,15 +39,15 @@
     
     cv::Mat l(im.rows, im.cols, CV_32FC1);
     std::array<int, 2> from_to_split { 0,0 };
-    cv::mixChannels(&im, 1, &l, 1, from_to_split.data(), from_to_split.size()>>1);
+    cv::mixChannels(&im, 1, &l, 1, from_to_split.data(), from_to_split.size() / 2);
     
-    l.convertTo(l, CV_8UC1, (1<<8)-1);
+    l.convertTo(l, CV_8UC1, UCHAR_MAX);
     clahe->apply(l, l);
-    l.convertTo(l, CV_32FC1, 1./((1<<8)-1));
+    l.convertTo(l, CV_32FC1, 1. / UCHAR_MAX);
     
     std::array<int, 6> from_to_merge { 0,0, 2,1, 3,2 };
     std::array<cv::Mat,2> in_merge { l, im };
-    cv::mixChannels(in_merge.data(), in_merge.size(), &im, 1, from_to_merge.data(), from_to_merge.size()>>1);
+    cv::mixChannels(in_merge.data(), in_merge.size(), &im, 1, from_to_merge.data(), from_to_merge.size() / 2);
 }
 
 - (void)withData:(void (^)(NSData* data, int cols, int rows))action
@@ -69,15 +69,8 @@ const std::array<std::string, 3> cascadeFiles
     // get luminance
     cv::Mat l(im.rows, im.cols, CV_32FC1);
     std::array<int, 2> from_to_split { 0,0 };
-    cv::mixChannels(&im, 1, &l, 1, from_to_split.data(), from_to_split.size()>>1);
-    l.convertTo(l, CV_8UC1, (1<<8)-1);
-    
-    /*cv::Mat rgb;
-    cv::cvtColor(im, rgb, CV_Lab2BGR);
-    cv::Mat l;
-    cv::cvtColor(rgb, l, CV_BGR2GRAY);*/
-    /*cv::imshow("", l);
-    cv::waitKey();*/
+    cv::mixChannels(&im, 1, &l, 1, from_to_split.data(), from_to_split.size() / 2);
+    l.convertTo(l, CV_8UC1, UCHAR_MAX);
     
     cv::Size minSize = im.size() / 4;
     
