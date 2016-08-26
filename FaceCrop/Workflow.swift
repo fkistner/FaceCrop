@@ -7,17 +7,16 @@
 //
 
 class Workflow {
-    class func determineAction(imageURL: NSURL) -> (imageURL: NSURL, outImageURL: NSURL, options: ArraySlice<String>) {
+    class func determineAction(_ imageURL: URL) -> (imageURL: URL, outImageURL: URL, options: ArraySlice<String>) {
         var components = imageURL.pathComponents!
         components.removeFirst(inURL.pathComponents!.count)
-        let relImageURL = NSURL(fileURLWithPath: NSString.pathWithComponents(components), relativeToURL: outURL)
-        let baseImageURL = relImageURL.URLByDeletingPathExtension!
-        let fileNameComponents = baseImageURL.lastPathComponent!.componentsSeparatedByString("^")
+        let relImageURL = URL(fileURLWithPath: NSString.path(withComponents: components), relativeTo: outURL as URL)
+        let baseImageURL = try! relImageURL.deletingPathExtension()
+        let fileNameComponents = baseImageURL.lastPathComponent!.components(separatedBy: "^")
         let options = fileNameComponents.dropFirst()
-        let outImageURL = baseImageURL
-            .URLByDeletingLastPathComponent!
-            .URLByAppendingPathComponent(fileNameComponents.first!, isDirectory: false)
-            .URLByAppendingPathExtension(outFormat)
+        let outImageURL = try! baseImageURL.deletingLastPathComponent()
+            .appendingPathComponent(fileNameComponents.first!, isDirectory: false)
+            .appendingPathExtension(outFormat)
         
         return (imageURL: imageURL, outImageURL: outImageURL, options: options)
     }

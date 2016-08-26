@@ -8,7 +8,7 @@
 
 import Foundation
 
-let (inURL, outURL, outFormat, outSize, outQuality) = { () -> (NSURL, NSURL, String, Int, Float) in
+let (inURL, outURL, outFormat, outSize, outQuality) = { () -> (URL, URL, String, Int, Float) in
     var outFormat: String?
     var outSize: Int?
     var outQuality: Float?
@@ -23,8 +23,8 @@ let (inURL, outURL, outFormat, outSize, outQuality) = { () -> (NSURL, NSURL, Str
         outFormat = Process.arguments[3]
         fallthrough
     case 3:
-        let inURL = NSURL(fileURLWithPath: (Process.arguments[1] as NSString).stringByExpandingTildeInPath, isDirectory: true)
-        let outURL = NSURL(fileURLWithPath: (Process.arguments[2] as NSString).stringByExpandingTildeInPath, isDirectory: true)
+        let inURL = URL(fileURLWithPath: (Process.arguments[1] as NSString).expandingTildeInPath, isDirectory: true)
+        let outURL = URL(fileURLWithPath: (Process.arguments[2] as NSString).expandingTildeInPath, isDirectory: true)
         return (inURL, outURL, outFormat ?? "jpg", outSize ?? 800, outQuality ?? 0.95)
     default:
         print("Usage: \(Process.arguments[0]) inPath outPath [outFormat] [outSize] [outQuality]")
@@ -32,22 +32,22 @@ let (inURL, outURL, outFormat, outSize, outQuality) = { () -> (NSURL, NSURL, Str
     }
 }()
 
-let numFormat = NSNumberFormatter()
-numFormat.numberStyle = .DecimalStyle
+let numFormat = NumberFormatter()
+numFormat.numberStyle = .decimal
 numFormat.localizesFormat = true
 
 let targetFaceHeight: CGFloat = 0.618
 
-let imageURLEnumerator = NSFileManager.defaultManager()
-    .enumeratorAtURL(inURL, includingPropertiesForKeys: [NSURLIsDirectoryKey], options: .SkipsHiddenFiles, errorHandler: nil)
+let imageURLEnumerator = FileManager.default()
+    .enumerator(at: inURL, includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue], options: .skipsHiddenFiles, errorHandler: nil)
 
-let actions = imageURLEnumerator?.reduce([(imageURL: NSURL, outImageURL: NSURL, options: ArraySlice<String>)]()) { actions,imageURL in
-    if let imageURL = imageURL as? NSURL where !imageURL.hasDirectoryPath {
+let actions = imageURLEnumerator?.reduce([(imageURL: URL, outImageURL: URL, options: ArraySlice<String>)]()) { actions,imageURL in
+    if let imageURL = imageURL as? URL where !imageURL.hasDirectoryPath {
         let action = Workflow.determineAction(imageURL)
         
-        let specificOutURL = action.outImageURL.URLByDeletingLastPathComponent!
-        try! NSFileManager.defaultManager()
-            .createDirectoryAtURL(specificOutURL, withIntermediateDirectories: true, attributes: nil)
+        let specificOutURL = try! action.outImageURL.deletingLastPathComponent()
+        try! FileManager.default()
+            .createDirectory(at: specificOutURL, withIntermediateDirectories: true, attributes: nil)
         
         var newActions = actions
         newActions.append(action)
@@ -58,11 +58,9 @@ let actions = imageURLEnumerator?.reduce([(imageURL: NSURL, outImageURL: NSURL, 
 
 print("\(actions.count) pictures:")
 
-let queue = dispatch_get_global_queue(QOS_CLASS_UTILITY, 0)
-
-dispatch_apply(actions.count, queue) { i in
+DispatchQueue.global(attributes: .qosUtility).apply(applier: actions.count) { i in
     autoreleasepool {
-        try! ImageProcessor.processImage(actions[i].imageURL, outImageURL: actions[i].outImageURL, forIndex: i, withOptions: actions[i].options)
+        try! ImageProcessor.process(imageURL: actions[i].imageURL, outImageURL: actions[i].outImageURL, forIndex: i, withOptions: actions[i].options)
     }
 }
 

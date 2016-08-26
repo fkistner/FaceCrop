@@ -9,14 +9,14 @@
 import Foundation
 
 public enum ErrorCode: Int {
-    case Exception
+    case exception
 }
 
 public class ExceptionError: NSError {
     public let ErrorDomain = "OrgChartGen"
     
     init(info dict: [String: String]?) {
-        super.init(domain: ErrorDomain, code: ErrorCode.Exception.rawValue, userInfo: dict)
+        super.init(domain: ErrorDomain, code: ErrorCode.exception.rawValue, userInfo: dict)
     }
     
     required public init?(coder aDecoder: NSCoder) {

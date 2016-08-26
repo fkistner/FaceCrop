@@ -10,17 +10,17 @@ import Foundation
 
 class ImageProcessor {
     
-    static func processImage(imageURL: NSURL, outImageURL: NSURL, forIndex i: Int, withOptions options: ArraySlice<String> = []) throws {
+    static func process(imageURL: URL, outImageURL: URL, forIndex i: Int, withOptions options: ArraySlice<String> = []) throws {
         var mgIm: MagickImage!
         var cvIm: OpenCVImage!
         
         mgIm = try MagickImage(fromFile: imageURL.path!)
         mgIm.setDepth(16)
-        mgIm.convertToColorspace(Colorspace_LAB, ignoreMissingProfile: true)
+        mgIm.convert(to: Colorspace_LAB, ignoreMissingProfile: true)
         
         let size = mgIm.size
         let square = min(size.width, size.height)
-        var crop = CGRectMake((size.width - square) / 2, (size.height - square) / 2, square, square)
+        var crop = CGRect(x: (size.width - square) / 2, y: (size.height - square) / 2, width: square, height: square)
         
         mgIm.withData { data,cols,rows in
             cvIm = OpenCVImage(data: data, cols: Int32(cols), rows: Int32(rows))
@@ -28,8 +28,8 @@ class ImageProcessor {
         
         let face = !options.contains("nocrop")
             ? cvIm.faceDetect()
-            : CGRectNull
-        if face != CGRectNull {
+            : CGRect.null
+        if face != CGRect.null {
             let th = face.size.height / targetFaceHeight
             let ts = min(th, square)
             
@@ -41,35 +41,35 @@ class ImageProcessor {
             tx -= max(tx + ts - size.width,  0.0)
             ty -= max(ty + ts - size.height, 0.0)
             
-            crop = CGRectMake(tx, ty, ts, ts)
+            crop = CGRect(x: tx, y: ty, width: ts, height: ts)
             
-            let posX = numFormat.stringFromNumber(tx / size.width)!
-            let posY = numFormat.stringFromNumber(ty / size.height)!
-            let ratio = numFormat.stringFromNumber(face.size.height / size.height)!
+            let posX = numFormat.string(from: tx / size.width)!
+            let posY = numFormat.string(from: ty / size.height)!
+            let ratio = numFormat.string(from: face.size.height / size.height)!
             print("\(i);\(outImageURL.relativePath!);1;\(posX);\(posY);\(ratio)")
         } else {
             print("\(i);\(outImageURL.relativePath!);-1;0;0;1")
         }
         
         mgIm.crop(crop)
-        mgIm.resize(CGSizeMake(800, 800))
+        mgIm.resize(CGSize(width: 800, height: 800))
         mgIm.withData { data,cols,rows in
             cvIm = OpenCVImage(data: data, cols: Int32(cols), rows: Int32(rows))
         }
         
         let tileSize: CGFloat = 16 // / 800.0 * square
         let clipLimit = 0.5 // / 800 * square
-        cvIm.claheWithClipLimit(Double(clipLimit), tileGridSize: CGSizeMake(tileSize, tileSize))
+        cvIm.clahe(withClipLimit: Double(clipLimit), tileGridSize: CGSize(width: tileSize, height: tileSize))
         
         cvIm.withData { data,cols,rows in
             mgIm = MagickImage(data: data, cols: UInt(cols), rows: UInt(rows))
         }
         if (outSize < 800) {
-            mgIm.resize(CGSizeMake(CGFloat(outSize), CGFloat(outSize)))
+            mgIm.resize(CGSize(width: CGFloat(outSize), height: CGFloat(outSize)))
         }
-        mgIm.convertToColorspace(Colorspace_sRGB)
+        mgIm.convert(to: Colorspace_sRGB)
         mgIm.setDepth(8)
         
-        try mgIm.writeToFile(outImageURL.path!, withQuality: outQuality)
+        try mgIm.write(toFile: outImageURL.path!, withQuality: outQuality)
     }
 }
