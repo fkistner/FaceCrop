@@ -6,6 +6,8 @@
 //  Copyright © 2016 Florian Kistner. All rights reserved.
 //
 
+import Foundation
+
 class Workflow {
     class func determineAction(_ imageURL: URL) -> (imageURL: URL, outImageURL: URL, options: ArraySlice<String>) {
         var components = imageURL.pathComponents!

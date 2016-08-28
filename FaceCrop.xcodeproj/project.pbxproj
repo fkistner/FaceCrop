@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		173438F41D003897004B8D3E /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173438F31D003897004B8D3E /* ImageProcessor.swift */; };
 		1742A4251CE49B48001EDDF3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1742A4241CE49B48001EDDF3 /* main.swift */; };
-		1742A42E1CE49D14001EDDF3 /* MagickImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1742A42D1CE49D14001EDDF3 /* MagickImage.mm */; };
 		17C6862D1CE62D8000CFE35F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C6862C1CE62D8000CFE35F /* Errors.swift */; };
-		17C686311CE6AA5B00CFE35F /* OpenCVImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = 17C686301CE6AA5B00CFE35F /* OpenCVImage.mm */; };
 		17E2012E1D536A21005CCC39 /* Workflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E2012D1D536A21005CCC39 /* Workflow.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,12 +29,7 @@
 		173438F31D003897004B8D3E /* ImageProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		1742A4211CE49B48001EDDF3 /* FaceCrop */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FaceCrop; sourceTree = BUILT_PRODUCTS_DIR; };
 		1742A4241CE49B48001EDDF3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		1742A42C1CE49D13001EDDF3 /* FaceCrop-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FaceCrop-Bridging-Header.h"; sourceTree = "<group>"; };
-		1742A42D1CE49D14001EDDF3 /* MagickImage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MagickImage.mm; sourceTree = "<group>"; };
-		17C6860D1CE5B3B700CFE35F /* MagickImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagickImage.h; sourceTree = "<group>"; };
 		17C6862C1CE62D8000CFE35F /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		17C686301CE6AA5B00CFE35F /* OpenCVImage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVImage.mm; sourceTree = "<group>"; };
-		17C686321CE6AA7800CFE35F /* OpenCVImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVImage.h; sourceTree = "<group>"; };
 		17E2012D1D536A21005CCC39 /* Workflow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workflow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,11 +67,6 @@
 				17C6862C1CE62D8000CFE35F /* Errors.swift */,
 				17E2012D1D536A21005CCC39 /* Workflow.swift */,
 				173438F31D003897004B8D3E /* ImageProcessor.swift */,
-				17C6860D1CE5B3B700CFE35F /* MagickImage.h */,
-				1742A42D1CE49D14001EDDF3 /* MagickImage.mm */,
-				17C686321CE6AA7800CFE35F /* OpenCVImage.h */,
-				17C686301CE6AA5B00CFE35F /* OpenCVImage.mm */,
-				1742A42C1CE49D13001EDDF3 /* FaceCrop-Bridging-Header.h */,
 			);
 			path = FaceCrop;
 			sourceTree = "<group>";
@@ -141,11 +129,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1742A42E1CE49D14001EDDF3 /* MagickImage.mm in Sources */,
 				17E2012E1D536A21005CCC39 /* Workflow.swift in Sources */,
 				17C6862D1CE62D8000CFE35F /* Errors.swift in Sources */,
 				173438F41D003897004B8D3E /* ImageProcessor.swift in Sources */,
-				17C686311CE6AA5B00CFE35F /* OpenCVImage.mm in Sources */,
 				1742A4251CE49B48001EDDF3 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,10 +165,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"MAGICKCORE_HDRI_ENABLE=1",
-					"MAGICKCORE_QUANTUM_DEPTH=16",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -196,16 +179,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-L/usr/local/opt/imagemagick/lib",
-					"-lMagick++-6.Q16HDRI",
-					"-lMagickCore-6.Q16HDRI",
-					"-L/usr/local/opt/opencv3/lib",
-					"-lopencv_objdetect",
-					"-lopencv_imgcodecs",
-					"-lopencv_imgproc",
-					"-lopencv_core",
-				);
+				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -236,10 +210,7 @@
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"MAGICKCORE_HDRI_ENABLE=1",
-					"MAGICKCORE_QUANTUM_DEPTH=16",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -252,16 +223,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = (
-					"-L/usr/local/opt/imagemagick/lib",
-					"-lMagick++-6.Q16HDRI",
-					"-lMagickCore-6.Q16HDRI",
-					"-L/usr/local/opt/opencv3/lib",
-					"-lopencv_objdetect",
-					"-lopencv_imgcodecs",
-					"-lopencv_imgproc",
-					"-lopencv_core",
-				);
+				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
@@ -274,7 +236,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = FaceCrop;
-				SWIFT_OBJC_BRIDGING_HEADER = "FaceCrop/FaceCrop-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -287,7 +248,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = FaceCrop;
-				SWIFT_OBJC_BRIDGING_HEADER = "FaceCrop/FaceCrop-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};

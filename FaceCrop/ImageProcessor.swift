@@ -7,29 +7,22 @@
 //
 
 import Foundation
+import CoreImage
 
 class ImageProcessor {
     
     static func process(imageURL: URL, outImageURL: URL, forIndex i: Int, withOptions options: ArraySlice<String> = []) throws {
-        var mgIm: MagickImage!
-        var cvIm: OpenCVImage!
+        let context = CIContext()
+        var image = CIImage(contentsOf: imageURL)!
+        let detector = CIDetector(ofType: CIDetectorTypeFace, context: context, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])!
+        let features = detector.features(in: image) ?? []
         
-        mgIm = try MagickImage(fromFile: imageURL.path!)
-        mgIm.setDepth(16)
-        mgIm.convert(to: Colorspace_LAB, ignoreMissingProfile: true)
-        
-        let size = mgIm.size
+        let size = image.extent.size
         let square = min(size.width, size.height)
         var crop = CGRect(x: (size.width - square) / 2, y: (size.height - square) / 2, width: square, height: square)
         
-        mgIm.withData { data,cols,rows in
-            cvIm = OpenCVImage(data: data, cols: Int32(cols), rows: Int32(rows))
-        }
-        
-        let face = !options.contains("nocrop")
-            ? cvIm.faceDetect()
-            : CGRect.null
-        if face != CGRect.null {
+        if !options.contains("nocrop"),
+            let face = features.first?.bounds {
             let th = face.size.height / targetFaceHeight
             let ts = min(th, square)
             
@@ -37,7 +30,7 @@ class ImageProcessor {
             let fcy = face.origin.y + face.size.height / 2.0
             
             var tx = max((fcx - ts * 0.5),   0.0)
-            var ty = max((fcy - ts * 0.556), 0.0)
+            var ty = max((fcy - ts * 0.444), 0.0)
             tx -= max(tx + ts - size.width,  0.0)
             ty -= max(ty + ts - size.height, 0.0)
             
@@ -51,25 +44,17 @@ class ImageProcessor {
             print("\(i);\(outImageURL.relativePath!);-1;0;0;1")
         }
         
-        mgIm.crop(crop)
-        mgIm.resize(CGSize(width: 800, height: 800))
-        mgIm.withData { data,cols,rows in
-            cvIm = OpenCVImage(data: data, cols: Int32(cols), rows: Int32(rows))
+        image = image.cropping(to: crop)
+        
+        for filter in image.autoAdjustmentFilters(options: [kCIImageAutoAdjustRedEye: false]) {
+            filter.setValue(image, forKey: kCIInputImageKey)
+            image = filter.outputImage!
         }
         
-        let tileSize: CGFloat = 16 // / 800.0 * square
-        let clipLimit = 0.5 // / 800 * square
-        cvIm.clahe(withClipLimit: Double(clipLimit), tileGridSize: CGSize(width: tileSize, height: tileSize))
-        
-        cvIm.withData { data,cols,rows in
-            mgIm = MagickImage(data: data, cols: UInt(cols), rows: UInt(rows))
-        }
-        if (outSize < 800) {
-            mgIm.resize(CGSize(width: CGFloat(outSize), height: CGFloat(outSize)))
-        }
-        mgIm.convert(to: Colorspace_sRGB)
-        mgIm.setDepth(8)
-        
-        try mgIm.write(toFile: outImageURL.path!, withQuality: outQuality)
+        let cgimage = context.createCGImage(image, from: image.extent)!
+        let destination = CGImageDestinationCreateWithURL(outImageURL, kUTTypeJPEG, 1, nil)!
+        let properties: NSDictionary = [kCGImageDestinationLossyCompressionQuality as String: outQuality]
+        CGImageDestinationAddImage(destination, cgimage, properties)
+        CGImageDestinationFinalize(destination)
     }
 }
