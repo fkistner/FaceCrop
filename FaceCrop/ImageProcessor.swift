@@ -15,7 +15,7 @@ class ImageProcessor {
         let context = CIContext()
         var image = CIImage(contentsOf: imageURL)!
         let detector = CIDetector(ofType: CIDetectorTypeFace, context: context, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])!
-        let features = detector.features(in: image) ?? []
+        let features = detector.features(in: image)
         
         let size = image.extent.size
         let square = min(size.width, size.height)
@@ -35,13 +35,12 @@ class ImageProcessor {
             ty -= max(ty + ts - size.height, 0.0)
             
             crop = CGRect(x: tx, y: ty, width: ts, height: ts)
-            
-            let posX = numFormat.string(from: tx / size.width)!
-            let posY = numFormat.string(from: ty / size.height)!
-            let ratio = numFormat.string(from: face.size.height / size.height)!
-            print("\(i);\(outImageURL.relativePath!);1;\(posX);\(posY);\(ratio)")
+            let posX = numFormat.string(from: NSNumber(value: Double(tx / size.width)))!
+            let posY = numFormat.string(from: NSNumber(value: Double(ty / size.height)))!
+            let ratio = numFormat.string(from: NSNumber(value: Double(face.size.height / size.height)))!
+            print("\(i);\(outImageURL.relativePath);1;\(posX);\(posY);\(ratio)")
         } else {
-            print("\(i);\(outImageURL.relativePath!);-1;0;0;1")
+            print("\(i);\(outImageURL.relativePath);-1;0;0;1")
         }
         
         image = image.cropping(to: crop)
@@ -52,7 +51,7 @@ class ImageProcessor {
         }
         
         let cgimage = context.createCGImage(image, from: image.extent)!
-        let destination = CGImageDestinationCreateWithURL(outImageURL, kUTTypeJPEG, 1, nil)!
+        let destination = CGImageDestinationCreateWithURL(outImageURL as CFURL, kUTTypeJPEG, 1, nil)!
         let properties: NSDictionary = [kCGImageDestinationLossyCompressionQuality as String: outQuality]
         CGImageDestinationAddImage(destination, cgimage, properties)
         CGImageDestinationFinalize(destination)

@@ -12,7 +12,7 @@ public enum ErrorCode: Int {
     case exception
 }
 
-public class ExceptionError: NSError {
+@objc public class ExceptionError: NSError {
     public let ErrorDomain = "OrgChartGen"
     
     init(info dict: [String: String]?) {

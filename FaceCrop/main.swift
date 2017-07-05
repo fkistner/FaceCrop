@@ -12,22 +12,22 @@ let (inURL, outURL, outFormat, outSize, outQuality) = { () -> (URL, URL, String,
     var outFormat: String?
     var outSize: Int?
     var outQuality: Float?
-    switch Process.arguments.count {
+    switch CommandLine.arguments.count {
     case 6:
-        outQuality = Float(Process.arguments[5])
+        outQuality = Float(CommandLine.arguments[5])
         fallthrough
     case 5:
-        outSize = Int(Process.arguments[4])
+        outSize = Int(CommandLine.arguments[4])
         fallthrough
     case 4:
-        outFormat = Process.arguments[3]
+        outFormat = CommandLine.arguments[3]
         fallthrough
     case 3:
-        let inURL = URL(fileURLWithPath: (Process.arguments[1] as NSString).expandingTildeInPath, isDirectory: true)
-        let outURL = URL(fileURLWithPath: (Process.arguments[2] as NSString).expandingTildeInPath, isDirectory: true)
+        let inURL = URL(fileURLWithPath: (CommandLine.arguments[1] as NSString).expandingTildeInPath, isDirectory: true)
+        let outURL = URL(fileURLWithPath: (CommandLine.arguments[2] as NSString).expandingTildeInPath, isDirectory: true)
         return (inURL, outURL, outFormat ?? "jpg", outSize ?? 800, outQuality ?? 0.95)
     default:
-        print("Usage: \(Process.arguments[0]) inPath outPath [outFormat] [outSize] [outQuality]")
+        print("Usage: \(CommandLine.arguments[0]) inPath outPath [outFormat] [outSize] [outQuality]")
         exit(-1)
     }
 }()
@@ -38,15 +38,15 @@ numFormat.localizesFormat = true
 
 let targetFaceHeight: CGFloat = 0.618
 
-let imageURLEnumerator = FileManager.default()
-    .enumerator(at: inURL, includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue], options: .skipsHiddenFiles, errorHandler: nil)
+let imageURLEnumerator = FileManager.default
+    .enumerator(at: inURL, includingPropertiesForKeys: [URLResourceKey(rawValue: URLResourceKey.isDirectoryKey.rawValue)], options: .skipsHiddenFiles, errorHandler: nil)
 
 let actions = imageURLEnumerator?.reduce([(imageURL: URL, outImageURL: URL, options: ArraySlice<String>)]()) { actions,imageURL in
-    if let imageURL = imageURL as? URL where !imageURL.hasDirectoryPath {
+    if let imageURL = imageURL as? URL, !imageURL.hasDirectoryPath {
         let action = Workflow.determineAction(imageURL)
         
-        let specificOutURL = try! action.outImageURL.deletingLastPathComponent()
-        try! FileManager.default()
+        let specificOutURL = action.outImageURL.deletingLastPathComponent()
+        try! FileManager.default
             .createDirectory(at: specificOutURL, withIntermediateDirectories: true, attributes: nil)
         
         var newActions = actions
@@ -58,7 +58,7 @@ let actions = imageURLEnumerator?.reduce([(imageURL: URL, outImageURL: URL, opti
 
 print("\(actions.count) pictures:")
 
-DispatchQueue.global(attributes: .qosUtility).apply(applier: actions.count) { i in
+DispatchQueue.concurrentPerform(iterations: actions.count) { i in
     autoreleasepool {
         try! ImageProcessor.process(imageURL: actions[i].imageURL, outImageURL: actions[i].outImageURL, forIndex: i, withOptions: actions[i].options)
     }
